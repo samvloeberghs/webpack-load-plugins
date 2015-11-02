@@ -20,7 +20,7 @@ module.exports = function(options) {
   var requireFn;
   options = options || {};
 
-  var pattern = arrayify(options.pattern || ['*-webpack-plugin', , '@*/*-webpack-plugin']);
+  var pattern = arrayify(options.pattern || ['*-webpack-plugin','@*/*-webpack-plugin']);
   var config = options.config || findup('package.json', {cwd: parentDir});
   var scope = arrayify(options.scope || ['dependencies', 'devDependencies', 'peerDependencies']);
   var replaceString = options.replaceString || /(-|\.)webpack-plugin$/;

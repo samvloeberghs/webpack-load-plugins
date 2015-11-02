@@ -1,6 +1,6 @@
 {
   "name": "webpack-load-plugins",
-  "version": "0.1",
+  "version": "0.1.1",
   "description": "Automatically load any webpack plugins in your package.json",
   "scripts": {
     "test": "NODE_PATH=test/global_modules mocha"

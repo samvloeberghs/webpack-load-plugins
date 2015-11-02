@@ -52,7 +52,7 @@ You can pass in an object of options that are shown below: (the values for the k
 
 ```js
 webpackLoadPlugins({
-    pattern: ['*-webpack-plugin'], // the glob(s) to search for
+    pattern: ['*-webpack-plugin','@*/*-webpack-plugin'], // the glob(s) to search for
     config: 'package.json', // where to find the plugins, by default searched up from process.cwd()
     scope: ['dependencies', 'devDependencies', 'peerDependencies'], // which keys in the config to look within
     replaceString: /-webpack-plugin$/, // what to remove from the name of the module when adding it to the context
@@ -103,5 +103,3 @@ Feel free to open an issue on this repo too.
 Credit largely goes to @jackfranklin for his [gulp-load-plugins](https://github.com/jackfranklin/gulp-load-plugins) 
 plugin & @sindresorhus for his [load-grunt-plugins](https://github.com/sindresorhus/load-grunt-tasks) plugin. This 
 plugin is almost identical, just tweaked slightly to work with Webpack and to expose the required plugins.
-
-## Changelog
