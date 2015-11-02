@@ -23,7 +23,7 @@ var webpackLoadPlugins = (function() {
       'wrap':   wrapInFunc({ name: 'insert.wrap' })
     },
     'findup-sync': function() { return null; },
-    '@savl/test-plugin-webpack-plugin': wrapInFunc({ name: 'test' })
+    '@savl/test-plugin-webpack-plugin': wrapInFunc({ name: 'test-plugin' })
   });
 })();
 
@@ -128,10 +128,10 @@ var commonTests = function(lazy) {
   it('supports loading scopped package', function() {
     var x = webpackLoadPlugins({
       lazy: lazy,
-      config: { dependencies: { '@savl/test-plugin-webpack-plugin': '1.0.0' } },
+      config: { dependencies: { '@savl/test-plugin-webpack-plugin': '1.0.0' } }
     });
 
-    assert.deepEqual(x.savl.testPlugin(), { name: 'test' });
+    assert.deepEqual(x.savl.testPlugin(), { name: 'test-plugin' });
   });
 
   it('supports custom rename functions', function () {

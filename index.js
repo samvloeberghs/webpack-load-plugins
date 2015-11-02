@@ -20,10 +20,10 @@ module.exports = function(options) {
   var requireFn;
   options = options || {};
 
-  var pattern = arrayify(options.pattern || ['*-webpack-plugin']);
+  var pattern = arrayify(options.pattern || ['*-webpack-plugin', , '@*/*-webpack-plugin']);
   var config = options.config || findup('package.json', {cwd: parentDir});
   var scope = arrayify(options.scope || ['dependencies', 'devDependencies', 'peerDependencies']);
-  var replaceString = options.replaceString || /^(-)webpack-plugin/;
+  var replaceString = options.replaceString || /(-|\.)webpack-plugin$/;
   var camelizePluginName = options.camelize !== false;
   var lazy = 'lazy' in options ? !!options.lazy : true;
   var renameObj = options.rename || {};

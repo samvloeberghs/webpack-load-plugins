@@ -55,7 +55,7 @@ webpackLoadPlugins({
     pattern: ['*-webpack-plugin'], // the glob(s) to search for
     config: 'package.json', // where to find the plugins, by default searched up from process.cwd()
     scope: ['dependencies', 'devDependencies', 'peerDependencies'], // which keys in the config to look within
-    replaceString: /^webpack(-|\.)/, // what to remove from the name of the module when adding it to the context
+    replaceString: /-webpack-plugin$/, // what to remove from the name of the module when adding it to the context
     camelize: true, // if true, transforms hyphenated plugins names to camel case
     lazy: true, // whether the plugins should be lazy loaded on demand
     rename: {}, // a mapping of plugins to rename
@@ -87,7 +87,6 @@ For example, if the plugin is `@savl/webpack-test-plugin` then you can access th
 
 ```js
 var plugins = require('webpack-load-plugins')();
-
 plugins.savl.testPlugin();
 ```
 
