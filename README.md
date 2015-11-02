@@ -24,7 +24,7 @@ Given a `package.json` file that has some dependencies within:
 Adding this into your `webpack.config.js`:
 
 ```js
-var gulp = require('webpack');
+var webpack = require('webpack');
 var webpackLoadPlugins = require('webpack-load-plugins');
 var plugins = webpackLoadPlugins();
 ```
@@ -44,18 +44,18 @@ plugins.html = require('html-webpack-plugin');
 
 You can then use the plugins just like you would if you'd manually required them, but referring to them as `plugins.name()`, rather than just `name()`.
 
-This frees you up from having to manually require each gulp plugin.
+This frees you up from having to manually require each webpack plugin.
 
 ## Options
 
 You can pass in an object of options that are shown below: (the values for the keys are the defaults):
 
 ```js
-gulpLoadPlugins({
+webpackLoadPlugins({
     pattern: ['*-webpack-plugin'], // the glob(s) to search for
     config: 'package.json', // where to find the plugins, by default searched up from process.cwd()
     scope: ['dependencies', 'devDependencies', 'peerDependencies'], // which keys in the config to look within
-    replaceString: /^gulp(-|\.)/, // what to remove from the name of the module when adding it to the context
+    replaceString: /^webpack(-|\.)/, // what to remove from the name of the module when adding it to the context
     camelize: true, // if true, transforms hyphenated plugins names to camel case
     lazy: true, // whether the plugins should be lazy loaded on demand
     rename: {}, // a mapping of plugins to rename
@@ -83,12 +83,12 @@ still work, the `replaceString` and `camelize` options will be ignored.
 
 `webpack-load-plugins` comes with [npm scope](https://docs.npmjs.com/misc/scope) support. 
 The major difference is that scoped plugins are accessible through an object on `plugins` that represents the scope. 
-For example, if the plugin is `@myco/gulp-test-plugin` then you can access the plugin as shown in the following example:
+For example, if the plugin is `@savl/webpack-test-plugin` then you can access the plugin as shown in the following example:
 
 ```js
 var plugins = require('webpack-load-plugins')();
 
-plugins.myco.testPlugin();
+plugins.savl.testPlugin();
 ```
 
 ## Lazy Loading

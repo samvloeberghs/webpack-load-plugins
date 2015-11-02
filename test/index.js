@@ -4,7 +4,7 @@ var sinon = require('sinon');
 
 //====================================================================
 
-var gulpLoadPlugins = (function() {
+var webpackLoadPlugins = (function() {
   var wrapInFunc = function(value) {
     return function() {
       return value;
@@ -14,17 +14,16 @@ var gulpLoadPlugins = (function() {
   var proxyquire = require('proxyquire').noCallThru();
 
   return proxyquire('../', {
-    'gulp-foo': wrapInFunc({ name: 'foo' }),
-    'gulp-bar': wrapInFunc({ name: 'bar' }),
-    'gulp-foo-bar': wrapInFunc({ name: 'foo-bar' }),
+    'foo-webpack-plugin': wrapInFunc({ name: 'foo' }),
+    'bar-webpack-plugin': wrapInFunc({ name: 'bar' }),
+    'foo-bar-webpack-plugin': wrapInFunc({ name: 'foo-bar' }),
     'jack-foo': wrapInFunc({ name: 'jack-foo' }),
-    'gulp-insert': {
+    'insert-webpack-plugin': {
       'append':  wrapInFunc({ name: 'insert.append' }),
       'wrap':   wrapInFunc({ name: 'insert.wrap' })
     },
-    'gulp.baz': wrapInFunc({ name: 'baz' }),
     'findup-sync': function() { return null; },
-    '@myco/gulp-test-plugin': wrapInFunc({ name: 'test' })
+    '@savl/test-plugin-webpack-plugin': wrapInFunc({ name: 'test' })
   });
 })();
 
@@ -33,7 +32,7 @@ var gulpLoadPlugins = (function() {
 describe('configuration', function() {
   it('throws a nice error if no configuration is found', function() {
     assert.throws(function() {
-      gulpLoadPlugins({
+      webpackLoadPlugins({
         config: null
       });
     }, /Could not find dependencies. Do you have a package.json file in your project?/);
@@ -44,14 +43,13 @@ describe('configuration', function() {
 // Contains common tests with and without lazy mode.
 var commonTests = function(lazy) {
   it('loads things in', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
       config: {
         dependencies: {
-          'gulp-foo': '1.0.0',
-          'gulp-bar': '*',
-          'gulp-insert': '*',
-          'gulp.baz': '*'
+          'foo-webpack-plugin': '1.0.0',
+          'bar-webpack-plugin': '*',
+          'insert-webpack-plugin': '*'
         }
       }
     });
@@ -62,26 +60,20 @@ var commonTests = function(lazy) {
     assert.deepEqual(x.bar(), {
       name: 'bar'
     });
-    assert.deepEqual(x.baz(), {
-      name: 'baz'
-    });
     assert.deepEqual(x.insert.wrap(), {
       name: 'insert.wrap'
-    });
-    assert.deepEqual(x.insert.append(), {
-      name: 'insert.append'
     });
   });
 
   it('can take a pattern override', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
       pattern: 'jack-*',
       replaceString: 'jack-',
       config: {
         dependencies: {
           'jack-foo': '1.0.0',
-          'gulp-bar': '*'
+          'bar-webpack-plugin': '*'
         }
       }
     });
@@ -93,12 +85,12 @@ var commonTests = function(lazy) {
   });
 
   it('allows camelizing to be turned off', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
       camelize: false,
       config: {
         dependencies: {
-          'gulp-foo-bar': '*'
+          'foo-bar-webpack-plugin': '*'
         }
       }
     });
@@ -109,11 +101,11 @@ var commonTests = function(lazy) {
   });
 
   it('camelizes plugins name by default', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
       config: {
         dependencies: {
-          'gulp-foo-bar': '*'
+          'foo-bar-webpack-plugin': '*'
         }
       }
     });
@@ -124,32 +116,32 @@ var commonTests = function(lazy) {
   });
 
   it('lets something be completely renamed', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
-      config: { dependencies: { 'gulp-foo': '1.0.0' } },
-      rename: { 'gulp-foo': 'bar' }
+      config: { dependencies: { 'foo-webpack-plugin': '1.0.0' } },
+      rename: { 'foo-webpack-plugin': 'bar' }
     });
 
     assert.deepEqual(x.bar(), { name: 'foo' });
   });
 
   it('supports loading scopped package', function() {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       lazy: lazy,
-      config: { dependencies: { '@myco/gulp-test-plugin': '1.0.0' } },
+      config: { dependencies: { '@savl/test-plugin-webpack-plugin': '1.0.0' } },
     });
 
-    assert.deepEqual(x.myco.testPlugin(), { name: 'test' });
+    assert.deepEqual(x.savl.testPlugin(), { name: 'test' });
   });
 
   it('supports custom rename functions', function () {
-    var x = gulpLoadPlugins({
+    var x = webpackLoadPlugins({
       renameFn: function () {
         return 'baz';
       },
       config: {
         dependencies: {
-          'gulp-foo-bar': '*'
+          'foo-bar-webpack-plugin': '*'
         }
       }
     });
@@ -170,11 +162,11 @@ describe('no lazy loading', function() {
   var x, spy;
   before(function() {
     spy = sinon.spy();
-    x = gulpLoadPlugins({
+    x = webpackLoadPlugins({
       lazy: false,
       config: {
         dependencies: {
-          'gulp-insert': '*'
+          'insert-webpack-plugin': '*'
         }
       },
       requireFn: function() {
@@ -195,11 +187,11 @@ describe('with lazy loading', function() {
   var x, spy;
   before(function() {
     spy = sinon.spy();
-    x = gulpLoadPlugins({
+    x = webpackLoadPlugins({
       lazy: true,
       config: {
         dependencies: {
-          'gulp-insert': '*'
+          'insert-webpack-plugin': '*'
         }
       },
       requireFn: function() {
@@ -221,11 +213,11 @@ describe('with lazy loading', function() {
 
 describe('common functionality', function () {
   it('throws a sensible error when not found', function () {
-    var x = gulpLoadPlugins({ config: __dirname + '/package.json' });
+    var x = webpackLoadPlugins({ config: __dirname + '/package.json' });
 
     assert.throws(function () {
       x.oops();
-    }, /Cannot find module 'gulp-oops'/);
+    }, /Cannot find module 'oops-webpack-plugin'/);
   });
 
   it('allows you to use in a lower directory', function() {
