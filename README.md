@@ -14,7 +14,7 @@ Given a `package.json` file that has some dependencies within:
 
 ```json
 {
-    "dependencies": {
+    "devDependencies": {
         "clean-webpack-plugin": "*",
         "html-webpack-plugin": "*"
     }
