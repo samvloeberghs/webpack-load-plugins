@@ -102,7 +102,7 @@ Feel free to open an issue on this repo too.
 ## Credit
 
 Credit largely goes to @jackfranklin for his [gulp-load-plugins](https://github.com/jackfranklin/gulp-load-plugins) 
-plugin. This plugin is almost identical, just tweaked slightly to work with Webpack and to expose the required plugins.
-
+plugin & @sindresorhus for his [load-grunt-plugins](https://github.com/sindresorhus/load-grunt-tasks) plugin. This 
+plugin is almost identical, just tweaked slightly to work with Webpack and to expose the required plugins.
 
 ## Changelog
