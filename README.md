@@ -90,14 +90,6 @@ var plugins = require('webpack-load-plugins')();
 plugins.savl.testPlugin();
 ```
 
-## Lazy Loading
-
-In 0.4.0 and prior, lazy loading used to only work with plugins that return a function. 
-In newer versions though, lazy loading should work for any plugin. 
-If you have a problem related to this please try disabling lazy loading and see if that fixes it. 
-Feel free to open an issue on this repo too.
-
-
 ## Credit
 
 Credit largely goes to @jackfranklin for his [gulp-load-plugins](https://github.com/jackfranklin/gulp-load-plugins) 
