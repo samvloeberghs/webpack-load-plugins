@@ -1,0 +1,31 @@
+{
+  "name": "webpack-load-plugins",
+  "version": "0.0.1",
+  "description": "Automatically load any webpack plugins in your package.json",
+  "scripts": {},
+  "files": [
+    "index.js"
+  ],
+  "repository": "samvloeberghs/webpack-load-plugins",
+  "keywords": [
+    "webpackfriendly",
+    "webpack",
+    "require",
+    "load",
+    "plugins"
+  ],
+  "author": "Sam Vloeberghs",
+  "contributors": [],
+  "license": "MIT",
+  "dependencies": {
+    "findup-sync": "^0.2.1",
+    "multimatch": "2.0.0",
+    "resolve": "^1.1.6"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.1",
+    "mocha": "^2.1.0",
+    "proxyquire": "^1.0.1",
+    "sinon": "^1.9.1"
+  }
+}
