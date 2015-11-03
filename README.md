@@ -1,12 +1,10 @@
 # webpack-load-plugins
 
-
 ## Install
 
 ```sh
 $ npm install --save-dev webpack-load-plugins
 ```
-
 
 ## Usage
 
