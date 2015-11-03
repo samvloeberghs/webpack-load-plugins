@@ -83,7 +83,7 @@ still work, the `replaceString` and `camelize` options will be ignored.
 
 `webpack-load-plugins` comes with [npm scope](https://docs.npmjs.com/misc/scope) support. 
 The major difference is that scoped plugins are accessible through an object on `plugins` that represents the scope. 
-For example, if the plugin is `@savl/webpack-test-plugin` then you can access the plugin as shown in the following example:
+For example, if the plugin is `@savl/test-plugin-webpack-plugin` then you can access the plugin as shown in the following example:
 
 ```js
 var plugins = require('webpack-load-plugins')();
